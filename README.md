@@ -78,7 +78,6 @@ WHERE rank <= 3;
 
 * **SQL**: Aggregations, Window Functions, CTEs, Indexing, Query Optimization.
 * **Data Analysis Concepts**: KPIs, Trend Analysis, Platform Segmentation.
-* (Upcoming) **Power BI / Excel Dashboard** for visualization.
 
 ---
 
