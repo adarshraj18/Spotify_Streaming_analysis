@@ -1,4 +1,5 @@
 # **Spotify Streaming Data Analysis (Advanced SQL)**
+![](https://github.com/adarshraj18/Spotify_Streaming_analysis/blob/main/Spotify-Logo.wine.png)
 
 ## **Overview**
 
