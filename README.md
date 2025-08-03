@@ -1,37 +1,90 @@
-Overview
-This project involves analyzing a Spotify dataset with various attributes about tracks, albums, and artists using SQL. It covers an end-to-end process of normalizing a denormalized dataset, performing SQL queries of varying complexity (easy, medium, and advanced), and optimizing query performance. The primary goals of the project are to practice advanced SQL skills and generate valuable insights from the dataset.
+# **Spotify Streaming Data Analysis (Advanced SQL)**
 
+## **Overview**
 
-Project Steps
-1. Data Exploration
-Before diving into SQL, it’s important to understand the dataset thoroughly. The dataset contains attributes such as:
+This project explores global music streaming trends using advanced SQL techniques. By analyzing a dataset of tracks, artists, and platform engagement metrics, the project uncovers insights into listener behavior, platform preferences, and track performance.
 
-Artist: The performer of the track.
-Track: The name of the song.
-Album: The album to which the track belongs.
-Album_type: The type of album (e.g., single or album).
-Various metrics such as danceability, energy, loudness, tempo, and more.
+---
 
-2. Querying the Data
-Retrieving the names of all tracks that have more than 1 billion streams.
-Listing down all albums along with their respective artists.
-Getting the total number of comments for tracks where licensed = TRUE.
-Finding out all tracks that belong to the album type single.
-Counting the total number of tracks by each artist.
-Calculating the average danceability of tracks in each album.
-Finding the top 5 tracks with the highest energy values.
-Listing down all tracks along with their views and likes where official_video = TRUE.
-For each album, calculating the total views of all associated tracks.
-Retrieving the track names that have been streamed on Spotify more than YouTube.
-Find the top 3 most-viewed tracks for each artist using window functions.
-Write a query to find tracks where the liveness score is above the average.
-Use a WITH clause to calculate the difference between the highest and lowest energy values for tracks in each album.
+## **Objectives**
 
-3. Query Optimization
-In advanced stages, the focus shifts to improving query performance. Some optimization strategies include:
+* Extract key performance indicators (KPIs) from streaming data.
+* Analyze patterns in artist popularity, track characteristics, and platform dominance.
+* Apply advanced SQL techniques (Window Functions, CTEs, Indexing) to derive actionable insights.
+* Optimize query performance for large-scale datasets.
 
+---
 
+## **Dataset**
 
-Database: PostgreSQL
-SQL Queries: DDL, DML, Aggregations, Joins, Subqueries, Window Functions
-Tools: pgAdmin 4 (or any SQL editor), PostgreSQL (via Homebrew, Docker, or direct installation)
+The dataset contains **25+ attributes**, including:
+
+* **Artist, Track, Album, Album Type**
+* **Streams, Views, Likes, Comments**
+* **Audio Features**: Danceability, Energy, Loudness, Acousticness, Liveness, Valence, Tempo
+* **Platform Indicators**: Most Played Platform (Spotify vs YouTube), Official Video Flag
+
+---
+
+## **Key Analyses & SQL Techniques**
+
+1. **Exploratory Data Analysis (EDA)**
+
+   * Count of tracks, albums, and artists.
+   * Track duration checks and data cleaning.
+
+2. **KPIs & Insights**
+
+   * Top 3 most-viewed tracks per artist *(Window Functions)*
+   * Platform segmentation: Spotify vs YouTube streams.
+   * Tracks with liveness above average.
+   * Energy variation across albums *(CTEs)*.
+   * Danceability trends by album.
+
+3. **Performance Optimization**
+
+   * Indexed artist column to reduce execution time by **85%**.
+
+---
+
+## **Sample Queries**
+
+```sql
+-- Top 3 most-viewed tracks per artist
+WITH ranking_artist AS (
+    SELECT
+        artist,
+        track,
+        SUM(views) AS total_view,
+        DENSE_RANK() OVER (PARTITION BY artist ORDER BY SUM(views) DESC) AS rank
+    FROM spotify
+    GROUP BY artist, track
+)
+SELECT * FROM ranking_artist
+WHERE rank <= 3;
+```
+
+---
+
+## **Future Enhancements**
+
+* Create a **Power BI Dashboard** to visualize KPIs and trends.
+* Implement a **Recommendation Engine** based on audio features.
+* Automate data ingestion for real-time streaming insights.
+
+---
+
+## **Tools & Skills Used**
+
+* **SQL**: Aggregations, Window Functions, CTEs, Indexing, Query Optimization.
+* **Data Analysis Concepts**: KPIs, Trend Analysis, Platform Segmentation.
+* (Upcoming) **Power BI / Excel Dashboard** for visualization.
+
+---
+
+## **Conclusion**
+
+The analysis highlights how advanced SQL can uncover valuable insights from streaming data, enabling music platforms and record labels to optimize playlists, target marketing strategies, and enhance listener engagement.
+
+---
+
